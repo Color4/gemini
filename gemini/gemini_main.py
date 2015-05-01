@@ -564,6 +564,12 @@ def main():
                   'in the event that a variant overlaps multiple annotations '
                   'in your annotation file (-f).'
                   'Any of {sum, mean, median, min, max, mode, list, uniq_list, first, last}')
+    parser_get.add_argument('-m',
+            dest='match_var',
+            action='store_true',
+            default=False,
+            help='If set, annotations will only be applied when REF and ALT values match.'
+                 'This option is only valid if annotation is a VCF file')
     def annotate_fn(parser, args):
         import gemini_annotate
         gemini_annotate.annotate(parser, args)
