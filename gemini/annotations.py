@@ -292,7 +292,7 @@ def annotations_in_region(var, anno, parser_type=None, naming="ucsc", match_var=
         anno = annos[anno]
 
     hits = _get_hits(coords, anno, parser_type)
-    if match_var == True:
+    if match_var:
         # Return only hits where variants match.
         matched_hits = []
         for h in hits:
