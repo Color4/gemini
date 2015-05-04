@@ -94,7 +94,7 @@ def _annotate_variants(args, conn, get_val_fn, col_names=None, col_types=None, c
             # Prefer no pysam parsing over tuple parsing to work around bug in pysam 0.8.0
             # https://github.com/pysam-developers/pysam/pull/44
             
-            update_data = get_val_fn(annotations_in_region(row, anno, None, naming, args.match_var))
+            update_data = get_val_fn(annotations_in_region(row, anno, None, naming, args.region_only))
             #update_data = get_val_fn(annotations_in_region(row, anno, "tuple", naming))
             # were there any hits for this row?
             if len(update_data) > 0:
@@ -276,8 +276,8 @@ def annotate(parser, args):
             sys.exit('EXITING: You may only specify a single column name (-c) '
                      'when using \"-a boolean\" or \"-a count\".\n')
 
-        if not args.anno_file.endswith(('.vcf', '.vcf.gz')) and args.match_var == True:
-            sys.exit('EXITING: You may only specify -m (match_var) when annotation is a VCF.')
+        if not args.anno_file.endswith(('.vcf', '.vcf.gz')) and args.region_only == True:
+            sys.exit('EXITING: You may only specify --region-only when annotation is a VCF.')
            
         return col_names
 
@@ -287,8 +287,8 @@ def annotate(parser, args):
                 args.col_names = args.col_extracts
             elif not args.col_extracts:
                 args.col_extracts = args.col_names
-        elif args.match_var == True:
-            sys.exit('EXITING: You may only specify -m (match_var) when annotation is a VCF.')
+        elif args.region_only == True:
+            sys.exit('EXITING: You may only specify --region-only when annotation is a VCF.')
 
         if not args.col_types:
             sys.exit('EXITING: need to give column types ("-t")\n')

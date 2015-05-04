@@ -277,7 +277,7 @@ def _get_cadd_scores(var, labels, hit):
         return raw[pos], scaled[pos]
 
 
-def annotations_in_region(var, anno, parser_type=None, naming="ucsc", match_var=False):
+def annotations_in_region(var, anno, parser_type=None, naming="ucsc", region_only=False):
     """Iterator of annotations found in a genomic region.
 
     - var: PyVCF object or database query with chromosome, start and end.
@@ -292,7 +292,7 @@ def annotations_in_region(var, anno, parser_type=None, naming="ucsc", match_var=
         anno = annos[anno]
 
     hits = _get_hits(coords, anno, parser_type)
-    if match_var:
+    if not region_only:
         # Return only hits where variants match.
         matched_hits = []
         for h in hits:
